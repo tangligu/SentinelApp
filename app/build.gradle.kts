@@ -74,10 +74,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
 
-    // Vosk - offline speech recognition
-    implementation("net.sf.py4j:py4j:0.10.9.9")
-    // 使用Vosk AAR for Android
-    implementation("com.alphacephei:vosk-android:0.3.47")
+    // Vosk - offline speech recognition (备选，在gradle同步时如果找不到可以注释掉)
+    // implementation("com.alphacephei:vosk-android:0.3.47")
 
     // WebSocket for streaming AI
     implementation("com.squareup.okhttp3:okhttp:4.12.0")

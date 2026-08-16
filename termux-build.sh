@@ -87,11 +87,15 @@ echo ""
 echo -e "${GREEN}正在编译... 这可能需要几分钟${NC}"
 echo ""
 
-# 给 gradlew 执行权限
-chmod +x gradlew
-
-# 构建 Debug APK
-./gradlew assembleDebug
+# 优先使用系统 gradle，否则用 gradlew
+if command -v gradle &> /dev/null; then
+    echo "使用系统 Gradle..."
+    gradle assembleDebug
+else
+    echo "使用 Gradle Wrapper..."
+    chmod +x gradlew
+    ./gradlew assembleDebug
+fi
 
 echo ""
 echo -e "${GREEN}============================================${NC}"

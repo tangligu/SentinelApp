@@ -34,12 +34,31 @@ echo -e "${YELLOW}[3/6] 安装 Gradle...${NC}"
 pkg install -y gradle
 
 echo -e "${YELLOW}[4/6] 安装 Android SDK...${NC}"
-# 安装 Android SDK 所需的工具
-pkg install -y android-sdk-26 aapt apksigner dx
+# Termux 中的 Android SDK 包名
+pkg install -y aapt apksigner dx ecj
+
+# 检查 Android SDK 是否已安装，如果未安装则通过 sdkmanager 安装
+if [ ! -d "$PREFIX/lib/android-sdk" ]; then
+    echo "Android SDK 未找到，通过 sdkmanager 安装..."
+    mkdir -p $PREFIX/lib/android-sdk
+    # 安装 cmdline-tools
+    cd /tmp
+    curl -L -o cmdline-tools.zip "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" 2>&1 | tail -1
+    if [ -f "cmdline-tools.zip" ]; then
+        unzip -q cmdline-tools.zip
+        mkdir -p $PREFIX/lib/android-sdk/cmdline-tools
+        mv cmdline-tools $PREFIX/lib/android-sdk/cmdline-tools/latest
+        export ANDROID_HOME=$PREFIX/lib/android-sdk
+        export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platforms;android-34" "build-tools;34.0.0" 2>&1 | tail -5
+        rm -rf /tmp/cmdline-tools*
+    fi
+fi
 
 # 设置 Android SDK 环境变量
 export ANDROID_HOME=$PREFIX/lib/android-sdk
 export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin 2>/dev/null
 
 echo -e "${YELLOW}[5/6] 配置项目...${NC}"
 # 复制项目文件

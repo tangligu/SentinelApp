@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 基础主题 -->
-    <style name="Theme.Sentinel" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/sentinel_primary</item>
-        <item name="colorPrimaryVariant">@color/sentinel_primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/sentinel_secondary</item>
-        <item name="colorOnSecondary">@color/white</item>
+    <!-- 基础主题 - 使用 Material3 主题，通过 Compose 完全控制 -->
+    <style name="Theme.Sentinel" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:colorBackground">@color/sentinel_background</item>
         <item name="android:statusBarColor">@color/sentinel_secondary</item>
         <item name="android:navigationBarColor">@color/sentinel_secondary</item>
+        <item name="android:windowBackground">@color/sentinel_background</item>
     </style>
 
     <!-- 启动页主题（Splash Screen） -->

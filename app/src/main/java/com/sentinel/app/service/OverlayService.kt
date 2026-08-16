@@ -34,6 +34,8 @@ class OverlayService : Service() {
     companion object {
         private const val TAG = "OverlayService"
 
+        const val ACTION_HIDE = "com.sentinel.app.action.HIDE_OVERLAY"
+
         @Volatile
         var isOverlayShowing = false
             private set
@@ -258,9 +260,5 @@ class OverlayService : Service() {
         super.onDestroy()
         hideOverlay()
         serviceScope.cancel()
-    }
-
-    companion object {
-        const val ACTION_HIDE = "com.sentinel.app.action.HIDE_OVERLAY"
     }
 }
